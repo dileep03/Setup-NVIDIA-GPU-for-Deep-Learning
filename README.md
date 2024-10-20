@@ -42,4 +42,26 @@ print("GPU Name: ", torch.cuda.get_device_name())
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Using device:', device)
+
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+    gpu_name = torch.cuda.get_device_name(device)
+    properties = torch.cuda.get_device_properties(device)
+    sm_count = properties.multi_processor_count
+    cores_per_sm = {
+        'Turing': 64,  # RTX 20xx, GTX 16xx series
+        'Ampere': 128, # RTX 30xx series
+        'Pascal': 128, # GTX 10xx series
+    }
+
+    architecture = properties.name.split()[0]  
+    cores = cores_per_sm.get(architecture, 64)  
+    total_cores = sm_count * cores
+
+    print(f"GPU Name: {gpu_name}")
+    print(f"Architecture: {architecture}")
+    print(f"Number of CUDA Cores: {total_cores}")
+else:
+    print("CUDA is not available on this device.")
+
 ```
