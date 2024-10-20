@@ -39,11 +39,11 @@ import torch
 print("Number of GPU: ", torch.cuda.device_count())
 print("GPU Name: ", torch.cuda.get_device_name())
 ```
-```
+```python
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Using device:', device)
 ```
-```
+```python
 if torch.cuda.is_available():
     device = torch.device("cuda")
     gpu_name = torch.cuda.get_device_name(device)
